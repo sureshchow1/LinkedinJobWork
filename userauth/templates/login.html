@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  {% for message in messages %}
+     {{ message }}
+  {% endfor %}
+<!-- Modal -->
+<div class="container">
+  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+        <div class="modal-header" >
+<!--          <a href="{% url 'home' %}" class="close" data-dismiss="modal">&times;</a>-->
+            <button type="submit" onclick="location.href='{% url 'home' %}'" class="close" data-dismiss="modal">X</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+        <!-- <div class="modal-body" style="padding:40px 50px;"> -->
+          <form  method="post">
+            {% csrf_token %}
+              <!-- {{ form.errors }}
+               {{ form.non_field_errors }}
+            {{ form.as_p }} -->
+              {% for field in form %}
+                  <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ field }}{{ error }}</p>
+                    {% endfor %}
+                  </p>
+              {% endfor %}
+            </br>
+           <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+            </br>
+          </form>
+        <!-- </div> -->
+      <div class="modal-footer">
+          <p>Not a member? <a href="{% url 'signup' %}"> Sign up</a></p>
+          <p>Forgot <a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your password?</a></br></p>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<style>
+  .modal-header, h4 {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+.modal-footer {
+    background-color: #f9f9f9;
+  }
+  </style>
+<script>
+$(document).ready(function(){
+    $("#myModal").modal();
+});
+</script>
+
+{% endblock %}

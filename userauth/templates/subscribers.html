@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+     <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Category_value</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for each_obj in subscribers %}
+            <tr>
+            <td>{{ each_obj.category_id.name }}</td>
+            <td>{{ each_obj.category_value }}</td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+     </table>
+        <a href="{% url 'add_subscribers' %}">Add Subscribers</a>
+    </div>
+{% endblock %}
