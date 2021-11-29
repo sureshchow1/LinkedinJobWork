@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+
+    {%  for post in posts %}
+        <h3> Post Content : </h3>  <p> {{ post.text }} </p>
+        {% if post.image_linked %}
+        <img src="media/{{ post.image_linked }}"><br>
+        {% endif %}
+        {% if post.video_linked %}
+        <video width="320" height="240" controls>
+          <source src="media/{{ post.video_linked }}" type="video/mp4">
+        </video>
+        {%  endif %}
+        <!-- <iframe src="media/article/docs/Test.java" >
+
+        </iframe> -->
+        <br>
+
+        {{ post.written_by }}
+        <p>Created Date: </p> {{ post.posted_at }}
+    {% endfor %}
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+  <a href="{% url 'signup' %}">Signup</a>
+{% endif %}
+{% endblock %}
